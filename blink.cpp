@@ -28,8 +28,8 @@ int main (int argc, char **argv)
   else if (argc == 2 && strcmp(argv[1],"green")  == 0 ) { r= 0x00; g=0xff; b=0x00; }
   else if (argc == 2 && strcmp(argv[1],"blue")   == 0 ) { r= 0x00; g=0x00; b=0xff; }
   else if (argc == 2 && strcmp(argv[1],"white")  == 0 ) { r= 0xff; g=0xff; b=0xff; }
-  else if (argc == 2 && strcmp(argv[1],"gray")  == 0 )  { r= 0x50; g=0x50; b=0x50; }
-  else if (argc == 2 && strcmp(argv[1],"grey")  == 0 )  { r= 0x50; g=0x50; b=0x50; }
+  else if (argc == 2 && strcmp(argv[1],"gray")   == 0 ) { r= 0x50; g=0x50; b=0x50; }
+  else if (argc == 2 && strcmp(argv[1],"grey")   == 0 ) { r= 0x50; g=0x50; b=0x50; }
   else if (argc == 2 && strcmp(argv[1],"yellow") == 0 ) { r= 0xff; g=0xff; b=0x00; }
   else if (argc == 2 && strcmp(argv[1],"pink")   == 0 ) { r= 0xff; g=0x00; b=0xff; }
   else if (argc == 2 && strcmp(argv[1],"cyan")   == 0 ) { r= 0x00; g=0xff; b=0xff; }
