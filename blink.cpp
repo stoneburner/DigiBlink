@@ -23,25 +23,31 @@ int main (int argc, char **argv)
   char r=0x00;
   char g=0x00;
   char b=0x00;
+  char id=0x01;
 
-  if      (argc == 2 && strcmp(argv[1],"red")    == 0 ) { r= 0xff; g=0x00; b=0x00; }
-  else if (argc == 2 && strcmp(argv[1],"green")  == 0 ) { r= 0x00; g=0xff; b=0x00; }
-  else if (argc == 2 && strcmp(argv[1],"blue")   == 0 ) { r= 0x00; g=0x00; b=0xff; }
-  else if (argc == 2 && strcmp(argv[1],"white")  == 0 ) { r= 0xff; g=0xff; b=0xff; }
-  else if (argc == 2 && strcmp(argv[1],"gray")   == 0 ) { r= 0x50; g=0x50; b=0x50; }
-  else if (argc == 2 && strcmp(argv[1],"grey")   == 0 ) { r= 0x50; g=0x50; b=0x50; }
-  else if (argc == 2 && strcmp(argv[1],"yellow") == 0 ) { r= 0xff; g=0xff; b=0x00; }
-  else if (argc == 2 && strcmp(argv[1],"pink")   == 0 ) { r= 0xff; g=0x00; b=0xff; }
-  else if (argc == 2 && strcmp(argv[1],"cyan")   == 0 ) { r= 0x00; g=0xff; b=0xff; }
-  else if (argc == 2 && strcmp(argv[1],"black")  == 0 ) { r= 0x00; g=0x00; b=0x00; }
-  else if (argc == 2 && strcmp(argv[1],"off")    == 0 ) { r= 0x00; g=0x00; b=0x00; }
-  else if (argc < 4) {
-    printf("Usage blink red green blue...\n");
+  if (argc==3) {
+    id= atoi(argv[1]) & 0xFF;
+  }
+
+  if      (argc == 3 && strcmp(argv[2],"red")    == 0 ) { r= 0xff; g=0x00; b=0x00; }
+  else if (argc == 3 && strcmp(argv[2],"green")  == 0 ) { r= 0x00; g=0xff; b=0x00; }
+  else if (argc == 3 && strcmp(argv[2],"blue")   == 0 ) { r= 0x00; g=0x00; b=0xff; }
+  else if (argc == 3 && strcmp(argv[2],"white")  == 0 ) { r= 0xff; g=0xff; b=0xff; }
+  else if (argc == 3 && strcmp(argv[2],"gray")   == 0 ) { r= 0x50; g=0x50; b=0x50; }
+  else if (argc == 3 && strcmp(argv[2],"grey")   == 0 ) { r= 0x50; g=0x50; b=0x50; }
+  else if (argc == 3 && strcmp(argv[2],"yellow") == 0 ) { r= 0xff; g=0xff; b=0x00; }
+  else if (argc == 3 && strcmp(argv[2],"pink")   == 0 ) { r= 0xff; g=0x00; b=0xff; }
+  else if (argc == 3 && strcmp(argv[2],"cyan")   == 0 ) { r= 0x00; g=0xff; b=0xff; }
+  else if (argc == 3 && strcmp(argv[2],"black")  == 0 ) { r= 0x00; g=0x00; b=0x00; }
+  else if (argc == 3 && strcmp(argv[2],"off")    == 0 ) { r= 0x00; g=0x00; b=0x00; }
+  else if (argc < 5) {
+    printf("Usage blink red green blue.%d..\n",argc);
     return 0;
   } else {
-    r = atoi(argv[1]) & 0xFF;
-    g = atoi(argv[2]) & 0xFF;
-    b = atoi(argv[3]) & 0xFF;
+    id= atoi(argv[1]) & 0xFF;
+    r = atoi(argv[2]) & 0xFF;
+    g = atoi(argv[3]) & 0xFF;
+    b = atoi(argv[4]) & 0xFF;
   }
 
   struct usb_bus *bus = NULL;
@@ -97,6 +103,7 @@ int main (int argc, char **argv)
            if(debug) printf("Found %i interfaces, using interface %i\n", numInterfaces, interface->bInterfaceNumber);
 
            usb_control_msg(devHandle, (0x01 << 5), 0x09, 0, 's' , 0, 0, 1000);
+           usb_control_msg(devHandle, (0x01 << 5), 0x09, 0, id , 0, 0, 1000);
            usb_control_msg(devHandle, (0x01 << 5), 0x09, 0, r , 0, 0, 1000);
            usb_control_msg(devHandle, (0x01 << 5), 0x09, 0, g , 0, 0, 1000);
            usb_control_msg(devHandle, (0x01 << 5), 0x09, 0, b , 0, 0, 1000);           
